@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+   app:
+    container_name: drone-managment
+    build: .
+    ports:
+        - 8000:5000
+    depends_on:
+        - db
+    working_dir: /app
+   db:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: drone-managment-db
+    environment:
+            SA_PASSWORD: "S3cur3P@ssW0rd!"
+            ACCEPT_EULA: "Y"
+    ports:
+    - "1433:1433"
