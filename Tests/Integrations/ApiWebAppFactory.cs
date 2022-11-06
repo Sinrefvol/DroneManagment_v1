@@ -14,7 +14,14 @@ namespace Tests.Integrations
         {
             builder.ConfigureServices(services =>
             {
-                //Creates a local db for testing
+                //remove old connection string
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType ==
+                        typeof(DbContextOptions<DroneContext>));
+
+                services.Remove(descriptor);
+
+                //add new one
                 services.AddDbContext<DroneContext>(options =>
                 {
                     options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=droneManagment;Trusted_Connection=True");
