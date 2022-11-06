@@ -1,14 +1,15 @@
-version: "3.9"
+version: '3.4'
+
 services:
-   app:
+  api:
+    image: ${DOCKER_REGISTRY-}api
     container_name: drone-managment
-    build: .
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
     ports:
-        - 8000:5000
-    depends_on:
-        - db
-    working_dir: /app
-   db:
+    - "8000:5000"
+  db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: drone-managment-db
     environment:
