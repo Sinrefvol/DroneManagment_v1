@@ -28,7 +28,7 @@ namespace API.Application.Commands
             public async Task<ApiDrone> Handle(AddDroneCommand request, CancellationToken cancellationToken)
             {
                 var drone = _repo.Add(Drone.Create(request.SerialNumber, request.Name));
-                await _repo.UnitOfWork.SaveChangesAsync(cancellationToken);
+                await _repo.Save(cancellationToken);
                 return new ApiDrone(drone);
             }
         }

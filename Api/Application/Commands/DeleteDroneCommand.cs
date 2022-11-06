@@ -29,7 +29,7 @@ namespace API.Application.Commands
                     return null;
 
                 _repo.Remove(droneToDelete);
-                await _repo.UnitOfWork.SaveChangesAsync(cancellationToken);
+                await _repo.Save(cancellationToken);
 
                 return new ApiDrone(droneToDelete);
             }

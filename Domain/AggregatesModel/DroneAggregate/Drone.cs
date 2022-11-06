@@ -34,12 +34,17 @@ namespace Domain.AggregatesModel.DroneAggregate
 
         public void UpdateMaintainanceDate(DateTime maintainance)
         {
+            if (maintainance < DateTime.Now)
+                throw new ArgumentException("Cannot schedule maintainance in the past");
             ScheduledMaintainance = maintainance;
         }
 
-        public void UpdateDistanceCovered(double newDistance)
+        public void UpdateDistanceCovered(double distanceCovered)
         {
-            DistanceCovered = newDistance;
+            if (distanceCovered <= 0)
+                throw new ArgumentException("Distance covered cannot be 0 or less");
+
+            DistanceCovered += distanceCovered;
         }
 
         public void UpdateOnMaintainance(bool onMaintainance)

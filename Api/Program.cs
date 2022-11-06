@@ -25,6 +25,7 @@ builder.Services.AddDbContext<DroneContext>(options =>
     {
         options.UseSqlServer(configuration.GetConnectionString(nameof(DroneContext)), b => b.MigrationsAssembly("API"));
     });
+
 builder.Services.AddScoped<IDroneRepository, DroneRepository>();
 
 var app = builder.Build();
@@ -36,6 +37,8 @@ app.UseHttpsRedirection();
 
 
 app.MapControllers();
+
+//Run migrations on startup if there are any
 
 using (var scope = app.Services.CreateScope())
 {
@@ -49,3 +52,4 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+public partial class Program { }

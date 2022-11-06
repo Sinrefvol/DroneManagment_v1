@@ -1,5 +1,4 @@
 ﻿using Domain.AggregatesModel.DroneAggregate;
-using Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class DroneContext : DbContext, IUnitOfWork
+    public class DroneContext : DbContext
     {
 
         public DroneContext()
@@ -37,12 +36,6 @@ namespace Infrastructure
                 add.Property(dm => dm.SerialNumber).HasColumnName(nameof(DroneModel.SerialNumber));
                 add.WithOwner();
             });
-
-
-
-
-
-
         }
     }
 }

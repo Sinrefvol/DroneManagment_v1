@@ -33,13 +33,19 @@ namespace API.Application.Commands
                 var drone = await _repo.GetById(request.Id);
                 if (drone == null)
                     return null;
-
-                drone.UpdateOnMaintainance(request.OnMaintainance);
-                drone.UpdateMaintainanceDate(request.ScheduledMaintainance);
-                drone.UpdateDistanceCovered(request.DistanceCovered);
+                try
+                {
+                    drone.UpdateOnMaintainance(request.OnMaintainance);
+                    drone.UpdateMaintainanceDate(request.ScheduledMaintainance);
+                    drone.UpdateDistanceCovered(request.DistanceCovered);
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
 
                 var updatedModel = _repo.UpdateDrone(drone);
-                await _repo.UnitOfWork.SaveChangesAsync(cancellationToken);
+                await _repo.Save(cancellationToken);
 
                 return new ApiDrone(updatedModel);
             }

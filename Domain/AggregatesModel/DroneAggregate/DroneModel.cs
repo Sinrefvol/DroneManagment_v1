@@ -27,10 +27,5 @@ namespace Domain.AggregatesModel.DroneAggregate
                    Name == model.Name &&
                    SerialNumber == model.SerialNumber;
         }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Name, SerialNumber);
-        }
     }
 }

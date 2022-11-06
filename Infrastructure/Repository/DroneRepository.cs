@@ -1,5 +1,4 @@
 ﻿using Domain.AggregatesModel.DroneAggregate;
-using Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
@@ -7,7 +6,6 @@ namespace Infrastructure.Repository
     public class DroneRepository : IDroneRepository
     {
         private readonly DroneContext _context;
-        public IUnitOfWork UnitOfWork => _context;
 
         public DroneRepository(DroneContext context)
         {
@@ -22,14 +20,20 @@ namespace Infrastructure.Repository
         public async Task<Drone> GetById(Guid id)
         {
             var drone = await _context.Drones
-                                .Include(d=>d.DroneModel)
-                                .FirstOrDefaultAsync(d=>d.Id == id);
+                                .Include(d => d.DroneModel)
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(d => d.Id == id);
             return drone;
         }
 
         public Drone Remove(Drone drone)
         {
             return _context.Drones.Remove(drone).Entity;
+        }
+
+        public async Task Save(CancellationToken cancellationToken)
+        {
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public Drone UpdateDrone(Drone drone)
