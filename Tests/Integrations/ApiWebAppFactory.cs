@@ -14,7 +14,7 @@ namespace Tests.Integrations
         {
             builder.ConfigureServices(services =>
             {
-                //remove old connection string
+                //remove existing db options
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
                         typeof(DbContextOptions<DroneContext>));
