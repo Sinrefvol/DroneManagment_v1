@@ -17,6 +17,7 @@ namespace API.Controllers
     [ApiController]
     public class DronesController : BaseController
     {
+        //Validates input to API
         private IValidator<AddDroneContract> _validator;
 
         public DronesController(IValidator<AddDroneContract> validator)

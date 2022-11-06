@@ -9,6 +9,7 @@ namespace Tests.Integrations
 {
     public class Helpers
     {
+        //Small utility do deserialize http response to a defined model
         public static async Task<T> DeserializeModel<T>(HttpResponseMessage response)
         {
             var json = await response.Content.ReadAsStringAsync();

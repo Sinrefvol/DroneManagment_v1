@@ -19,8 +19,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//Maps all command handlers
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+//Maps validator
 builder.Services.AddScoped<IValidator<AddDroneContract>, AddDroneValidator>();
+
+//Sets up connection to the databse
 builder.Services.AddDbContext<DroneContext>(options =>
     {
         options.UseSqlServer(configuration.GetConnectionString(nameof(DroneContext)), b => b.MigrationsAssembly("API"));
@@ -52,4 +56,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+//For integration tests
 public partial class Program { }

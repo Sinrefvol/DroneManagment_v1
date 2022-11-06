@@ -5,6 +5,8 @@ namespace API.Controllers
 {
     public class BaseController : ControllerBase
     {
+
+        //Wrappers for mediator.send, gets the mediator service upon request and dispatches provided command.
         protected Task DispatchAsync(IRequest command)
         {
             var mediator = HttpContext.RequestServices.GetRequiredService<IMediator>();
